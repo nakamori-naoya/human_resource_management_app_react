@@ -1,12 +1,11 @@
 import { useQuery } from 'react-query';
-import { fetchFacebookMembers } from '../lib/github_api/facebook';
+import { fetchMembers } from '../../lib/private_app/members';
 
-const Sample1 = () => {
+const MemberList = () => {
   const { data: users = [{ id: 111, name: 'sample', company: 'dokka' }] } = useQuery(
     'facebookMembers',
-    () => fetchFacebookMembers(),
+    () => fetchMembers(),
   );
-  console.log(users, 11111);
 
   return (
     <div>
@@ -14,11 +13,11 @@ const Sample1 = () => {
       <div>
         {users.map((user) => {
           return (
-            <li key={user.id}>
+            <div key={user.id}>
               <div>{user.id}</div>
               <div>{user.name}</div>
               <div>{user.company}</div>
-            </li>
+            </div>
           );
         })}
       </div>
@@ -26,4 +25,4 @@ const Sample1 = () => {
   );
 };
 
-export default Sample1;
+export default MemberList;

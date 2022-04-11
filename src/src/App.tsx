@@ -1,5 +1,4 @@
-import React from 'react';
-import ParentA from './pages/ParentA';
+import ParentA from './components/pages/ParentA';
 
 function App() {
   return <ParentA />;

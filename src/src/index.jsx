@@ -1,13 +1,11 @@
 import React from 'react';
 import './index.css';
-import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+const root = document.getElementById('root');
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,11 +16,11 @@ const queryClient = new QueryClient({
   },
 });
 
-root.render(
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+      <App />
     </QueryClientProvider>
   </React.StrictMode>,
 );

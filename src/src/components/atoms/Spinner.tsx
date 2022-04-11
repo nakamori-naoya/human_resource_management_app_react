@@ -5,7 +5,7 @@ import * as React from 'react';
 const Spineer = () => {
   return (
     <Box sx={{ display: 'flex' }}>
-      <CircularProgress />
+      <CircularProgress size={400} />
     </Box>
   );
 };
