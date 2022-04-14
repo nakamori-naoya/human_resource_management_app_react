@@ -7,7 +7,7 @@ type Props = {
 };
 const MemberProfile = ({ userId }: Props) => {
   const { data: user = { birthDay: 111, favoriteAnime: 'sample', favoriteMovie: 'dokka' } } =
-    useQuery('memberInfo', () => fetchMemberProfile(userId));
+    useQuery(['memberInfo', userId], () => fetchMemberProfile(userId));
 
   return (
     <>

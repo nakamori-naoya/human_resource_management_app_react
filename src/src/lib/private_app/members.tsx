@@ -19,6 +19,7 @@ export const fetchMembers = async (): Promise<User[]> => {
 };
 
 export const fetchMemberProfile = async (userId: number): Promise<UserInfo> => {
+  console.log(userId);
   const user = await axios.get(baseUrl + `users/${userId}`).then((res) => res.data.data);
   console.log(user);
 
