@@ -7,7 +7,7 @@ export type User = {
 };
 
 export type UserInfo = {
-  birth_day: string;
+  birthDay: string;
   favoriteAnime: string;
   favoriteMovie: string;
 };
@@ -18,8 +18,9 @@ export const fetchMembers = async (): Promise<User[]> => {
   return users;
 };
 
-export const fetchMemberInfo = async (): Promise<UserInfo> => {
-  const user = await axios.get(baseUrl + 'user').then((res) => res.data.data);
+export const fetchMemberProfile = async (userId: number): Promise<UserInfo> => {
+  const user = await axios.get(baseUrl + `users/${userId}`).then((res) => res.data.data);
+  console.log(user);
 
   return user;
 };

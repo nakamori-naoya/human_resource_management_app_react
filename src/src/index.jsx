@@ -2,10 +2,12 @@ import React from 'react';
 import './index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = document.getElementById('root');
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -16,7 +18,7 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(root).render(
+root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}

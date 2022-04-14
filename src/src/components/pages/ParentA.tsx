@@ -1,15 +1,33 @@
-import { Suspense } from 'react';
-import { startTransition, useTransition } from 'react-transition-group/node_modules/@types/react';
+import MemberProfile from '../atoms/MemberProfile';
 import MemberList from '../atoms/MemberList';
 import Spineer from '../atoms/Spinner';
+import { useState, Suspense, useTransition } from 'react';
 
 const ParentA = () => {
+  const [isPending, startTransition] = useTransition();
+  const [userId, setUserId] = useState<number>(0);
+
   return (
-    <SuspenseList revealOrder='forwards'>
+    <Suspense fallback={<div>ちとお待ちを</div>}>
       <Suspense fallback={<Spineer />}>
         <MemberList />
       </Suspense>
-    </SuspenseList>
+      <div style={isPending ? { opacity: 0.5 } : undefined}>
+        <Suspense fallback={<Spineer />}>
+          <MemberProfile userId={userId} />
+        </Suspense>
+      </div>
+      <button
+        onClick={() =>
+          startTransition(() => {
+            setUserId((uid) => uid + 1);
+          })
+        }
+        disabled={isPending}
+      >
+        次のユーザーのプロフィールを取得
+      </button>
+    </Suspense>
   );
 };
 
