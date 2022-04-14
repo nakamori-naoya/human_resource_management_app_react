@@ -8,7 +8,7 @@ const ParentA = () => {
   const [userId, setUserId] = useState<number>(0);
 
   return (
-    <Suspense fallback={<div>ちとお待ちを</div>}>
+    <>
       <Suspense fallback={<Spineer />}>
         <MemberList />
       </Suspense>
@@ -27,7 +27,7 @@ const ParentA = () => {
       >
         次のユーザーのプロフィールを取得
       </button>
-    </Suspense>
+    </>
   );
 };
 
