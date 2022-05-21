@@ -1,0 +1,9 @@
+{
+  "name": "eslint-config-prettier-check",
+  "version": "1.0.0",
+  "author": "Simon Lydell",
+  "license": "MIT",
+  "description": "Legacy eslint-config-prettier CLI tool dummy package.",
+  "repository": "lydell/eslint-config-prettier-check",
+  "bin": "./index.js"
+}
