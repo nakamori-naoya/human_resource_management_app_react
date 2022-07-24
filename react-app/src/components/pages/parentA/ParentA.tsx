@@ -1,5 +1,6 @@
 import { useState, Suspense, useTransition } from 'react';
 import Spineer from '../../ui-elements/Spinner';
+import ErrorBoundary from './ErrorBoundary';
 import MemberList from './MemberList';
 import MemberProfile from './MemberProfile';
 
@@ -9,9 +10,12 @@ const ParentA = () => {
 
   return (
     <>
-      <Suspense fallback={<Spineer />}>
-        <MemberList />
-      </Suspense>
+      <ErrorBoundary statusMessages={{ 0: 'サーバエラーです' }}>
+        <Suspense fallback={<Spineer />}>
+          <MemberList />
+        </Suspense>
+      </ErrorBoundary>
+
       <div style={isPending ? { opacity: 0.5 } : undefined}>
         <Suspense fallback={<Spineer />}>
           <MemberProfile userId={userId} />
