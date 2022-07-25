@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const baseUrl = 'http://localhost:9000/api/v1/';
 export type User = {
   id: number;
@@ -13,7 +14,13 @@ export type UserInfo = {
 };
 
 export const fetchMembers = async (): Promise<User[]> => {
-  const users = await axios.get(baseUrl + 'users').then((res) => res.data.data);
+  const users = await axios.get(baseUrl + 'users').then((res) => {
+    if (new Date().getSeconds() % 2 === 0) {
+      throw new Error('MightThrowError Component throw Error!!');
+    }
+
+    return res.data.data;
+  });
 
   return users;
 };
