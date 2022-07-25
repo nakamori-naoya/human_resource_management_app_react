@@ -21,7 +21,6 @@ const ErrorBoundaryPractice = () => {
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback} onError={onError} onReset={reset}>
         <Suspense fallback={<Spineer />}>
-          <span>ErrorBoundaryPractice</span>
           <MightThrowError />
         </Suspense>
       </ErrorBoundary>
