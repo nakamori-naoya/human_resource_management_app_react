@@ -12,12 +12,15 @@ const ErrorBoundaryPractice = () => {
 
   return (
     // onErrorには、エラーが発生した時に呼ばれる関数をコールバック関数として渡す
-    <ErrorBoundary FallbackComponent={ErrorFallback} onError={onError}>
-      <Suspense fallback={<Spineer />}>
-        <span>ErrorBoundaryPractice</span>
-        <MightThrowError />
-      </Suspense>
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={onError}>
+        <Suspense fallback={<Spineer />}>
+          <span>ErrorBoundaryPractice</span>
+          <MightThrowError />
+        </Suspense>
+      </ErrorBoundary>
+      <div>ErrorBoundaryの外にいるので、影響を受けない</div>
+    </>
   );
 };
 
