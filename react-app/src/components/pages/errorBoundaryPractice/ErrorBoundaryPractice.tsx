@@ -11,7 +11,7 @@ const ErrorBoundaryPractice = () => {
   return (
     // onErrorには、エラーが発生した時に呼ばれる関数をコールバック関数として渡す
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={onError}>
-      <span>ParentB</span>
+      <span>ErrorBoundaryPractice</span>
       <MightThrowError />
     </ErrorBoundary>
   );
