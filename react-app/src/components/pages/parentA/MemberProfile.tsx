@@ -5,8 +5,10 @@ type Props = {
   userId: number;
 };
 const MemberProfile = ({ userId }: Props) => {
-  const { data: user = { birthDay: 111, favoriteAnime: 'sample', favoriteMovie: 'dokka' } } =
-    useQuery(['memberInfo', userId], () => fetchMemberProfile(userId));
+  const { data: user = { birthDay: null, favoriteAnime: null, favoriteMovie: null } } = useQuery(
+    ['memberInfo', userId],
+    () => fetchMemberProfile(userId),
+  );
 
   return (
     <>
