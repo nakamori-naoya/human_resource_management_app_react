@@ -12,6 +12,9 @@ const ErrorBoundaryPractice = () => {
   };
 
   const { reset } = useQueryErrorResetBoundary();
+  // useQueryErrorResetBoundaryについては、以下の記事を参照
+  // https://tanstack.com/query/v4/docs/reference/QueryErrorResetBoundary
+  // https://tanstack.com/query/v4/docs/reference/QueryErrorResetBoundary
 
   return (
     // onErrorには、エラーが発生した時に呼ばれる関数をコールバック関数として渡す
