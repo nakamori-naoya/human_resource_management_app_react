@@ -1,6 +1,8 @@
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './ErrorFallback';
 import MightThrowError from './MightThrowError';
+import Spineer from '../../ui-elements/Spinner';
+import { Suspense } from 'react';
 
 const ErrorBoundaryPractice = () => {
   const onError = (error: Error, info: { componentStack: string }) => {
@@ -11,8 +13,10 @@ const ErrorBoundaryPractice = () => {
   return (
     // onErrorには、エラーが発生した時に呼ばれる関数をコールバック関数として渡す
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={onError}>
-      <span>ErrorBoundaryPractice</span>
-      <MightThrowError />
+      <Suspense fallback={<Spineer />}>
+        <span>ErrorBoundaryPractice</span>
+        <MightThrowError />
+      </Suspense>
     </ErrorBoundary>
   );
 };
