@@ -5,9 +5,12 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "prettier"
+    "prettier",
+    "plugin:tailwindcss/recommended"
   ],
+  "plugins": ["tailwindcss"],
   "rules": {
+    "tailwindcss/no-custom-classname": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "lines-between-class-members": [
