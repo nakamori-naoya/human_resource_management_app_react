@@ -1,30 +1,11 @@
 import TextBox from '../../ui-elements/TextBox';
-import { useCallback, useState } from 'react';
 import AuthButton from './AuthButton';
 import AuthToggle from './AuthToggle';
+import useAuthentication from './hooks/useAuthentication';
 
 const EmailAuth = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isLogin, setIsLogin] = useState<boolean>(true);
-
-  const inputEmail = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>): void => {
-      setEmail(event.target.value);
-    },
-    [email],
-  );
-
-  const inputPassword = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>): void => {
-      setPassword(event.target.value);
-    },
-    [password],
-  );
-
-  const toggleIsLogin = useCallback((): void => {
-    setIsLogin(!isLogin);
-  }, [isLogin]);
+  const { inputEmail, inputPassword, toggleIsLogin, isLogin, password, email } =
+    useAuthentication();
 
   return (
     <>
