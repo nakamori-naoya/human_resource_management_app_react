@@ -7,18 +7,16 @@ type Props = {
   type: string;
   autoComplete: string;
   required: boolean;
-  text: string;
   setText: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 const TextBox = React.memo(
-  ({ label, placeholder, id, name, type, autoComplete, required, text, setText }: Props) => {
+  ({ label, placeholder, id, name, type, autoComplete, required, setText }: Props) => {
     return (
       <div>
         <label htmlFor={id} className='sr-only'>
           {label}
         </label>
         <input
-          value={text}
           onChange={(event) => setText(event)}
           id={id}
           name={name}

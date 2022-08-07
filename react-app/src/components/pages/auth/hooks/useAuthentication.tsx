@@ -23,7 +23,7 @@ const useAuthentication = () => {
     setIsLogin(!isLogin);
   }, [isLogin]);
 
-  return { inputEmail, inputPassword, toggleIsLogin, isLogin, password, email };
+  return { inputEmail, inputPassword, toggleIsLogin, isLogin };
 };
 
 export default useAuthentication;

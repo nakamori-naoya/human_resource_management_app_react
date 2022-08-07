@@ -4,8 +4,7 @@ import AuthToggle from './AuthToggle';
 import useAuthentication from './hooks/useAuthentication';
 
 const EmailAuth = () => {
-  const { inputEmail, inputPassword, toggleIsLogin, isLogin, password, email } =
-    useAuthentication();
+  const { inputEmail, inputPassword, toggleIsLogin, isLogin } = useAuthentication();
 
   return (
     <>
@@ -17,7 +16,6 @@ const EmailAuth = () => {
         autoComplete='email'
         required={true}
         type='email'
-        text={email}
         setText={inputEmail}
       />
       <div className=' my-6' />
@@ -29,7 +27,6 @@ const EmailAuth = () => {
         autoComplete='password'
         required={true}
         type='password'
-        text={password}
         setText={inputPassword}
       />
       <div className='mt-6' />
