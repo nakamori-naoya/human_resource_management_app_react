@@ -20,7 +20,7 @@ const TextBox = ({ label, placeholder, id, name, type, autoComplete, required }:
         type={type}
         autoComplete={autoComplete} //https://omkz.net/form-autocomplete/
         required={required}
-        className='w-80 h-8 rounded-md relative block px-3 py-2 border border-gray-300 placeholder-gray-500  text-black focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+        className='relative block h-8 w-80 rounded-md border border-gray-300 px-3 py-2 text-black  placeholder:text-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
         placeholder={placeholder}
       />
     </div>
