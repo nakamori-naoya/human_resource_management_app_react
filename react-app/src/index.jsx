@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CookiesProvider } from 'react-cookie';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -22,7 +23,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-      <App />
+      <CookiesProvider>
+        <App />
+      </CookiesProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 );
