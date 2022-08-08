@@ -2,9 +2,11 @@ import TextBox from '../../ui-elements/TextBox';
 import AuthButton from './AuthButton';
 import AuthToggle from './AuthToggle';
 import useAuthentication from './hooks/useAuthentication';
+import useToggle from '../../../hooks/useToggle';
 
 const EmailAuth = () => {
-  const { inputEmail, inputPassword, toggleIsLogin, isLogin } = useAuthentication();
+  const { inputEmail, inputPassword } = useAuthentication();
+  const { state: isLogin, toggle: toggleIsLogin } = useToggle();
 
   return (
     <>

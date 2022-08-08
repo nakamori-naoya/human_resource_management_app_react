@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 const useAuthentication = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [isLogin, setIsLogin] = useState<boolean>(true);
 
   const inputEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -19,11 +18,7 @@ const useAuthentication = () => {
     [password],
   );
 
-  const toggleIsLogin = useCallback((): void => {
-    setIsLogin(!isLogin);
-  }, [isLogin]);
-
-  return { inputEmail, inputPassword, toggleIsLogin, isLogin };
+  return { inputEmail, inputPassword };
 };
 
 export default useAuthentication;
