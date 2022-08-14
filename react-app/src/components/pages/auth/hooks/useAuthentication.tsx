@@ -30,7 +30,6 @@ const useAuthentication = () => {
     [password],
   );
 
-  const register = async (event: React.MouseEvent<HTMLButtonElement>) => {
   const register = async () => {
     const res = await signUp({ email: email, password: password });
     console.log('react-app/src/components/pages/auth/hooks/useAuthentication.tsx', res);
@@ -47,7 +46,6 @@ const useAuthentication = () => {
     }
   };
 
-  const login = async (event: React.MouseEvent<HTMLButtonElement>) => {
   const login = async () => {
     try {
       const res = await signIn({ email: email, password: password });
