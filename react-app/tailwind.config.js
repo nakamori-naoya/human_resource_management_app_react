@@ -18,6 +18,10 @@ module.exports = {
       borderRadius: {
         '4xl': '30px',
       },
+      fontSize: {
+        xxs: '8px',
+        xxs: '0.5rem',
+      },
     },
   },
   plugins: [],
