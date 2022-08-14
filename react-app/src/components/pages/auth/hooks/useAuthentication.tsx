@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { signIn, signUp } from '../../../../lib/api/v1/auth';
 
 const useAuthentication = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [_, setCookie] = useCookies(['_access_token', '_client', '_uid']);
@@ -35,6 +36,8 @@ const useAuthentication = () => {
         setCookie('_access_token', res.headers['access-token'], { path: '/', secure: true });
         setCookie('_client', res.headers['client'], { path: '/', secure: true });
         setCookie('_uid', res.headers['uid'], { path: '/', secure: true });
+        //TODO: navigateの設定は仮実装のため、後続の対応で変更
+        navigate('/success');
       }
   };
 
