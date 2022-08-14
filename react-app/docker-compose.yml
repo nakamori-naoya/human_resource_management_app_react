@@ -4,7 +4,8 @@ services:
     build:
       context: ./
     volumes:
-      - ./:/usr/src/app
+      - /app/node_modules
+      - .:/app
     command: sh -c "PORT=4000 yarn start"
     ports:
       - "4000:4000"
