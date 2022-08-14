@@ -1,13 +1,20 @@
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AuthPresenter from '../../../components/pages/auth/AuthPresenter';
-import { setup } from '../../utils/useEvent';
+import { setup } from '../../utils/userEvent';
+import { mockedAxios as axios } from '../../utils/mockedAxios';
+const mockedNavigator = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedNavigator,
+}));
 
-jest.mock('axios');
 describe('about sign up', () => {
-  const { user, axios } = setup(<AuthPresenter />);
+  axios.post.mockImplementationOnce(() =>
+    Promise.resolve({ 'access-token': 'access-token', client: 'client', uid: 'uid' }),
+  );
+  const { user } = setup(<AuthPresenter />);
   beforeEach(async () => {
-    screen.debug();
     expect(screen.getByText('アカウントをお持ちでない方はこちら')).toBeInTheDocument();
     await user.click(screen.getByText('アカウントをお持ちでない方はこちら'));
     expect(screen.getByText('ログインの方はこちら')).toBeInTheDocument();
@@ -16,9 +23,6 @@ describe('about sign up', () => {
   it('when success', async () => {
     user.type(screen.getByLabelText('メールアドレス'), 'example@gmail.com');
     user.type(screen.getByLabelText('パスワード'), '12345678');
-    user.click(screen.getByText('新規登録'));
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve({ data: { email: 'example@gmail', password: '12345678' } }),
-    );
+    await user.click(screen.getByText('新規登録'));
   });
 });
