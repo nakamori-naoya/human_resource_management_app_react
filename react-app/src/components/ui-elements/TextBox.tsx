@@ -6,11 +6,22 @@ type Props = {
   name: string;
   type: string;
   autoComplete: string;
+  errorMessage?: string;
   required: boolean;
   setText: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 const TextBox = React.memo(
-  ({ label, placeholder, id, name, type, autoComplete, required, setText }: Props) => {
+  ({
+    label,
+    placeholder,
+    id,
+    name,
+    type,
+    autoComplete,
+    required,
+    setText,
+    errorMessage,
+  }: Props) => {
     return (
       <div>
         <label htmlFor={id} className='sr-only'>
@@ -26,6 +37,9 @@ const TextBox = React.memo(
           className='relative block h-8 w-80 rounded-md border border-gray-300 px-3 py-2 text-black  placeholder:text-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
           placeholder={placeholder}
         />
+        {!!errorMessage ? (
+          <p className='text-xxs -mb-3 h-3 font-bold text-red-400 '>{errorMessage}</p>
+        ) : null}
       </div>
     );
   },
