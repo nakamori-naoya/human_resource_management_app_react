@@ -5,7 +5,7 @@ import useAuthentication from './hooks/useAuthentication';
 import useToggle from '../../../hooks/useToggle';
 
 const EmailAuth = () => {
-  const { inputEmail, inputPassword, register, login } = useAuthentication();
+  const { inputEmail, inputPassword, register, login, emailErrorMessage } = useAuthentication();
   const { state: isLogin, toggle: toggleIsLogin } = useToggle();
 
   return (
@@ -19,6 +19,7 @@ const EmailAuth = () => {
         required={true}
         type='email'
         setText={inputEmail}
+        errorMessage={emailErrorMessage}
       />
       <div className=' my-6' />
       <TextBox
