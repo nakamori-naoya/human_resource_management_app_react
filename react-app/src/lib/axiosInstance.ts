@@ -11,7 +11,7 @@ const options = {
 export const axiosInstance =
   process.env.NODE_ENV === 'test'
     ? axios.create({
-        baseURL: 'http://localhost:9001/api/v1',
+        baseURL: 'https://api.github.com/zen/api/v1',
         headers: {
           'Content-Type': 'application/json',
         },
