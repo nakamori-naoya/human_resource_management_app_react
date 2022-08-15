@@ -2,9 +2,6 @@ import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AuthPresenter from '../../../components/pages/auth/AuthPresenter';
 import { setupUserEvent } from '../../utils/userEvent';
-// import { mockedAxios as axios } from '../../utils/mockedAxios';
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 const mockedNavigator = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -13,10 +10,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('about sign up', () => {
   const { user } = setupUserEvent();
-  let mock: MockAdapter;
-  beforeAll(() => {
-    mock = new MockAdapter(axios);
-  });
 
   beforeEach(async () => {
     render(<AuthPresenter />);
@@ -26,10 +19,8 @@ describe('about sign up', () => {
   });
 
   afterEach(() => {
-    mock.reset();
     cleanup();
   });
-
   it('when email format is inValid', async () => {
     await user.type(screen.getByLabelText('メールアドレス'), 'examplegmail.com');
     screen.debug();
@@ -37,23 +28,45 @@ describe('about sign up', () => {
   });
 
   it('when success', async () => {
-    mock.onPost('/api/v1/auth/sign_up').reply(200, {
-      'access-token': 'access-token',
-      client: 'client',
-      uid: 'uid',
-    });
     await user.type(screen.getByLabelText('メールアドレス'), 'example@gmail.com');
     await user.type(screen.getByLabelText('パスワード'), '12345678');
     await user.click(screen.getByText('新規登録'));
+    expect(mockedNavigator).toHaveBeenCalledWith('/success');
   });
 
   it('when fails', async () => {
-    mock
-      .onPost('/api/v1/auth/sign_up')
-      .reply(422, { type: 'invalid_request_error', messages: ['email has been taken'] });
-
     await user.type(screen.getByLabelText('メールアドレス'), 'example@gmail.com');
     await user.type(screen.getByLabelText('パスワード'), '12345678');
     await user.click(screen.getByText('新規登録'));
   });
 });
+
+// const { user } = setupUserEvent();
+
+// beforeEach(async () => {
+//   render(<AuthPresenter />);
+//   expect(screen.getByText('アカウントをお持ちでない方はこちら')).toBeInTheDocument();
+//   await user.click(screen.getByText('アカウントをお持ちでない方はこちら'));
+//   expect(screen.getByText('ログインの方はこちら')).toBeInTheDocument();
+// });
+
+// afterEach(() => {
+//   cleanup();
+// });
+// it('when email format is inValid', async () => {
+//   await user.type(screen.getByLabelText('メールアドレス'), 'examplegmail.com');
+//   screen.debug();
+//   expect(await screen.findByText('メールアドレスの形式が正しくありません')).toBeInTheDocument();
+// });
+
+// it('when success', async () => {
+//   await user.type(screen.getByLabelText('メールアドレス'), 'example@gmail.com');
+//   await user.type(screen.getByLabelText('パスワード'), '12345678');
+//   await user.click(screen.getByText('新規登録'));
+// });
+
+// it('when fails', async () => {
+//   await user.type(screen.getByLabelText('メールアドレス'), 'example@gmail.com');
+//   await user.type(screen.getByLabelText('パスワード'), '12345678');
+//   await user.click(screen.getByText('新規登録'));
+// });
