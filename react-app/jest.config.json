@@ -7,9 +7,10 @@
     "**/?(*.)+(spec|test).+(ts|tsx|js)"
   ],
   "transform": {
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest"
   },
   "testEnvironment": "jsdom",
-  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts", "<rootDir>/src/setupTests.ts"]
 }
 
