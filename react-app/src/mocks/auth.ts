@@ -99,7 +99,7 @@ export const authHandlers = [
     }
   }),
 
-  rest.post('https://api.github.com/zen/api/v1/auth/signin', (req, res, ctx) => {
+  rest.post('https://api.github.com/zen/api/v1/auth/sign_in', (req, res, ctx) => {
     const { email, password } = req.body as { email: string; password: string };
     console.log({ email, password });
 
