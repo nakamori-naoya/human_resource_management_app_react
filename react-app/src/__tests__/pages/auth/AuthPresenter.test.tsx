@@ -50,12 +50,11 @@ describe('about sign up', () => {
   });
 
   describe('when fails', () => {
-    it.only('when email has been taken', async () => {
+    it('when email has been taken', async () => {
       await user.type(screen.getByLabelText('メールアドレス'), INVALID_EMAIL_FORMAT_PARAMS.email);
       await user.type(screen.getByLabelText('パスワード'), INVALID_EMAIL_FORMAT_PARAMS.password);
       expect(await screen.findByText('メールアドレスの形式が正しくありません')).toBeInTheDocument();
       await user.click(screen.getByText('新規登録'));
-      screen.debug();
       expect(await screen.findByText('メールアドレスは有効ではありません')).toBeInTheDocument();
     });
     it('when email has been taken', async () => {
@@ -68,6 +67,7 @@ describe('about sign up', () => {
         EMAIL_HAS_BEEN_TAKEN_FORMAT_PARAMS.password,
       );
       await user.click(screen.getByText('新規登録'));
+      await screen.findByText('メールアドレスは既に使用されています');
     });
     it('when password is less than six', async () => {
       await user.type(
@@ -79,6 +79,7 @@ describe('about sign up', () => {
         INVALID_PASSWORD_LESS_THAN_SIX_PARAMS.password,
       );
       await user.click(screen.getByText('新規登録'));
+      expect(await screen.findByText('パスワードは6文字以上です')).toBeInTheDocument();
     });
     it('when password is more than 128', async () => {
       await user.type(
@@ -90,6 +91,7 @@ describe('about sign up', () => {
         INVALID_PASSWORD_MORE_THAN_128_PARAMS.password,
       );
       await user.click(screen.getByText('新規登録'));
+      expect(await screen.findByText('パスワードは128文字以内です')).toBeInTheDocument();
     });
   });
 });
