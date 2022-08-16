@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AuthPresenter from '../../../components/pages/auth/AuthPresenter';
 import { setupUserEvent } from '../../utils/userEvent';
-import { mockedSignUpParams } from '../../../mocks/auth';
+import { mockedSignInParams, mockedSignUpParams } from '../../../mocks/auth';
 const mockedNavigator = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -93,6 +93,49 @@ describe('about sign up', () => {
       );
       await user.click(screen.getByText('新規登録'));
       expect(await screen.findByText('パスワードは128文字以内です')).toBeInTheDocument();
+    });
+  });
+});
+
+describe('about sign In', () => {
+  const { VALID_PARAMS, INVALID_EMAIL_FORMAT_PARAMS, INVALID_PASSWORD_LESS_THAN_SIX_PARAMS } =
+    mockedSignInParams();
+
+  it('when success', async () => {
+    renderWithToastify(<AuthPresenter />);
+    await user.type(screen.getByLabelText('メールアドレス'), VALID_PARAMS.email);
+    await user.type(screen.getByLabelText('パスワード'), VALID_PARAMS.password);
+    await user.click(screen.getByText('ログイン'));
+    expect(mockedNavigator).toHaveBeenCalledWith('/success');
+  });
+  describe('when fails', () => {
+    it('when email is inValid', async () => {
+      renderWithToastify(<AuthPresenter />);
+      await user.type(screen.getByLabelText('メールアドレス'), INVALID_EMAIL_FORMAT_PARAMS.email);
+      await user.type(screen.getByLabelText('パスワード'), INVALID_EMAIL_FORMAT_PARAMS.password);
+      await user.click(screen.getByText('ログイン'));
+      expect(
+        await screen.findByText(
+          'ログインに問題がありました。メールアドレスとパスワードを確認するか、アカウントを作成してください。',
+        ),
+      ).toBeInTheDocument();
+    });
+    it('when password is inValid', async () => {
+      renderWithToastify(<AuthPresenter />);
+      await user.type(
+        screen.getByLabelText('メールアドレス'),
+        INVALID_PASSWORD_LESS_THAN_SIX_PARAMS.email,
+      );
+      await user.type(
+        screen.getByLabelText('パスワード'),
+        INVALID_PASSWORD_LESS_THAN_SIX_PARAMS.password,
+      );
+      await user.click(screen.getByText('ログイン'));
+      expect(
+        await screen.findByText(
+          'ログインに問題がありました。メールアドレスとパスワードを確認するか、アカウントを作成してください。',
+        ),
+      ).toBeInTheDocument();
     });
   });
 });
