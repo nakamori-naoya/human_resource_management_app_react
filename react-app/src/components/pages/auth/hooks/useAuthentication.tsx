@@ -51,17 +51,18 @@ const useAuthentication = () => {
   };
 
   const login = async () => {
-    try {
-      const res = await signIn({ email: email, password: password });
-      console.log('react-app/src/components/pages/auth/hooks/useAuthentication.tsx', res);
-      if (res.status === 200) {
-        setCookie('_access_token', res.headers['access-token'], { path: '/', secure: true });
-        setCookie('_client', res.headers['client'], { path: '/', secure: true });
-        setCookie('_uid', res.headers['uid'], { path: '/', secure: true });
-        navigate('/success');
-      }
-    } catch (err: unknown) {
-      alert(err);
+    const res = await signIn({ email: email, password: password });
+    if (res.status === 200) {
+      setCookie('_access_token', res.headers['access-token'], { path: '/', secure: true });
+      setCookie('_client', res.headers['client'], { path: '/', secure: true });
+      setCookie('_uid', res.headers['uid'], { path: '/', secure: true });
+      navigate('/success');
+    } else if (res.status === 401) {
+      toastService({
+        message:
+          'ログインに問題がありました。メールアドレスとパスワードを確認するか、アカウントを作成してください。',
+        type: 'dark',
+      });
     }
   };
 
