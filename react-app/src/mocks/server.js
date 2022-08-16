@@ -1,4 +1,5 @@
 import { setupServer } from 'msw/node';
-import { handlers } from './handler';
+import { authHandlers } from './auth';
+
 // This configures a Service Worker with the given request handlers.
-export const server = setupServer(...handlers);
+export const server = setupServer(...authHandlers);
