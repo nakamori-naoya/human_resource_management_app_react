@@ -1,6 +1,6 @@
 import EmailAuth from './EmailAuth';
 import OAuthLogin from './OAuthLogin';
-const Auth = () => {
+const AuthPresenter = () => {
   return (
     <div className='w-112 h-112 rounded-4xl mx-auto  mt-12 border shadow-md'>
       <div className='m-auto mt-10 block w-80'>
@@ -12,4 +12,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthPresenter;

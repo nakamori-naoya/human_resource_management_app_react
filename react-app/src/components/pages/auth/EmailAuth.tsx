@@ -5,7 +5,7 @@ import useAuthentication from './hooks/useAuthentication';
 import useToggle from '../../../hooks/useToggle';
 
 const EmailAuth = () => {
-  const { inputEmail, inputPassword } = useAuthentication();
+  const { inputEmail, inputPassword, register, login, emailErrorMessage } = useAuthentication();
   const { state: isLogin, toggle: toggleIsLogin } = useToggle();
 
   return (
@@ -19,6 +19,7 @@ const EmailAuth = () => {
         required={true}
         type='email'
         setText={inputEmail}
+        errorMessage={emailErrorMessage}
       />
       <div className=' my-6' />
       <TextBox
@@ -34,12 +35,12 @@ const EmailAuth = () => {
       <div className='mt-6' />
       {isLogin ? (
         <>
-          <AuthButton label='ログイン' />
+          <AuthButton label='ログイン' onClick={login} />
           <AuthToggle label='アカウントをお持ちでない方はこちら' toggleIsLogin={toggleIsLogin} />
         </>
       ) : (
         <>
-          <AuthButton label='新規登録' />
+          <AuthButton label='新規登録' onClick={register} />
           <AuthToggle label='ログインの方はこちら' toggleIsLogin={toggleIsLogin} />
         </>
       )}

@@ -21,7 +21,10 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
   },
+  "types": ["jest", "node"],
   "include": [
-    "src"
-, "src/components"  ]
+    "src", 
+    "jest.setup.ts", 
+    "src/components"  
+  ]
 }
