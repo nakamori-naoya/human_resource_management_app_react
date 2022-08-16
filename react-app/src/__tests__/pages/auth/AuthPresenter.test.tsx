@@ -20,8 +20,9 @@ export const renderWithToastify = (component: ReactNode) => {
   );
 };
 
+const { user } = setupUserEvent();
+
 describe('about sign up', () => {
-  const { user } = setupUserEvent();
   const {
     VALID_PARAMS,
     INVALID_EMAIL_FORMAT_PARAMS,
