@@ -31,13 +31,6 @@ describe('about sign up', () => {
   } = mockedSignUpParams();
 
   beforeEach(async () => {
-    console.log({
-      VALID_PARAMS,
-      INVALID_EMAIL_FORMAT_PARAMS,
-      EMAIL_HAS_BEEN_TAKEN_FORMAT_PARAMS,
-      INVALID_PASSWORD_LESS_THAN_SIX_PARAMS,
-      INVALID_PASSWORD_MORE_THAN_128_PARAMS,
-    });
     renderWithToastify(<AuthPresenter />);
     expect(screen.getByText('アカウントをお持ちでない方はこちら')).toBeInTheDocument();
     await user.click(screen.getByText('アカウントをお持ちでない方はこちら'));
