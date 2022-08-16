@@ -8,6 +8,17 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedNavigator,
 }));
+import { ToastContainer } from 'react-toastify';
+import { ReactNode } from 'react';
+
+export const renderWithToastify = (component: ReactNode) => {
+  return render(
+    <div>
+      <ToastContainer />
+      {component}
+    </div>,
+  );
+};
 
 describe('about sign up', () => {
   const { user } = setupUserEvent();
@@ -27,7 +38,7 @@ describe('about sign up', () => {
       INVALID_PASSWORD_LESS_THAN_SIX_PARAMS,
       INVALID_PASSWORD_MORE_THAN_128_PARAMS,
     });
-    render(<AuthPresenter />);
+    renderWithToastify(<AuthPresenter />);
     expect(screen.getByText('アカウントをお持ちでない方はこちら')).toBeInTheDocument();
     await user.click(screen.getByText('アカウントをお持ちでない方はこちら'));
     expect(screen.getByText('ログインの方はこちら')).toBeInTheDocument();
@@ -46,12 +57,13 @@ describe('about sign up', () => {
   });
 
   describe('when fails', () => {
-    it('when email has been taken', async () => {
+    it.only('when email has been taken', async () => {
       await user.type(screen.getByLabelText('メールアドレス'), INVALID_EMAIL_FORMAT_PARAMS.email);
       await user.type(screen.getByLabelText('パスワード'), INVALID_EMAIL_FORMAT_PARAMS.password);
       expect(await screen.findByText('メールアドレスの形式が正しくありません')).toBeInTheDocument();
-
       await user.click(screen.getByText('新規登録'));
+      screen.debug();
+      expect(await screen.findByText('メールアドレスは有効ではありません')).toBeInTheDocument();
     });
     it('when email has been taken', async () => {
       await user.type(
