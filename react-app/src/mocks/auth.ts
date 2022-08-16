@@ -38,6 +38,15 @@ export const mockedSignUpParams = () => {
   };
 };
 
+
+export const mockedSignInParams = () => {
+  return {
+    VALID_PARAMS,
+    INVALID_EMAIL_FORMAT_PARAMS,
+    INVALID_PASSWORD_LESS_THAN_SIX_PARAMS,
+  };
+};
+
 export const authHandlers = [
   rest.post('https://api.github.com/zen/api/v1/auth', (req, res, ctx) => {
     const { email, password } = req.body as { email: string; password: string };
@@ -88,5 +97,42 @@ export const authHandlers = [
         }),
       );
     }
+  }),
+
+  rest.post('https://api.github.com/zen/api/v1/auth/signin', (req, res, ctx) => {
+    const { email, password } = req.body as { email: string; password: string };
+    console.log({ email, password });
+
+    if (shallowEqual({ email, password }, VALID_PARAMS)) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          status: 200,
+          headers: {
+            'access-token': 'access-token',
+            client: 'client',
+            uid: 'uid',
+          },
+        }),
+      );
+    } else if (shallowEqual({ email, password }, INVALID_EMAIL_FORMAT_PARAMS)) {
+      return res(
+        ctx.status(401),
+        ctx.json({
+          errors: ['ログイン用の認証情報が正しくありません。再度お試しください。'],
+          success: false,
+        }),
+      );
+    } else if (shallowEqual({ email, password }, INVALID_PASSWORD_LESS_THAN_SIX_PARAMS)) {
+      return res(
+        ctx.status(401),
+        ctx.json({
+          errors: ['ログイン用の認証情報が正しくありません。再度お試しください。'],
+          success: false,
+        }),
+      );
+    }
+
+    return res(ctx.status(401), ctx.json({ data: {} }));
   }),
 ];
