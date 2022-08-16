@@ -6,6 +6,5 @@ type SignIn = { email: string; password: string };
 
 export const signUp = (params: SignUp) => axiosInstance.post('/auth', params).catch(error => error.response);
 
-export const signIn = (params: SignIn) => {
-  return axiosInstance.post('auth/sign_in', params);
-};
+export const signIn = (params: SignIn) =>
+  axiosInstance.post('auth/sign_in', params).catch((error) => error.response);
