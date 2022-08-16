@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { signIn, signUp } from '../../../../lib/api/v1/auth';
 import { isValidEmail } from '../../../../validator/emailValidator';
+import { toastService } from '../../../../utils/toastService';
 
 const useAuthentication = () => {
   const navigate = useNavigate();
@@ -32,10 +33,13 @@ const useAuthentication = () => {
 
   const register = async () => {
     const res = await signUp({ email: email, password: password });
-    console.log('react-app/src/components/pages/auth/hooks/useAuthentication.tsx', res);
     if (res.status === 422) {
-      alert(res.data.messages[0]);
-      // TODO: errorメッセージの表示はトーストで行うため、上記alertは仮実装
+      const messages: string[] = res.data.messages;
+      // NOTE:messagesの型はsignUpの定義元で定義すること
+
+      messages.map((message) => {
+        toastService({ message: message, type: 'dark' });
+      });
     }
     if (res.status === 200) {
       setCookie('_access_token', res.headers['access-token'], { path: '/', secure: true });
