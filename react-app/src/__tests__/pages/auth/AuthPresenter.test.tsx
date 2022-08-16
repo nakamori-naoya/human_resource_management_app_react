@@ -51,7 +51,7 @@ describe('about sign up', () => {
   });
 
   describe('when fails', () => {
-    it('when email has been taken', async () => {
+    it('when email is inValid', async () => {
       await user.type(screen.getByLabelText('メールアドレス'), INVALID_EMAIL_FORMAT_PARAMS.email);
       await user.type(screen.getByLabelText('パスワード'), INVALID_EMAIL_FORMAT_PARAMS.password);
       expect(await screen.findByText('メールアドレスの形式が正しくありません')).toBeInTheDocument();
