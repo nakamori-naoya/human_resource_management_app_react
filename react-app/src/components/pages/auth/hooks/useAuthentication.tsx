@@ -1,16 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import { signIn, signUp } from '../../../../lib/api/v1/auth';
+import { signIn, signUp, signOut } from '../../../../lib/api/v1/auth';
 import { isValidEmail } from '../../../../validator/emailValidator';
 import { toastService } from '../../../../utils/toastService';
+import { useSignIn } from '../../../../store/hooks/auth';
 
 const useAuthentication = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [_, setCookie] = useCookies(['_access_token', '_client', '_uid']);
+  const [cookies, setCookie, removeCookie] = useCookies(['_access_token', '_client', '_uid']);
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>('');
+  const { setIsSignIn } = useSignIn();
 
   const inputEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -68,7 +70,26 @@ const useAuthentication = () => {
     }
   };
 
-  return { inputEmail, inputPassword, register, login, emailErrorMessage };
+  const logOut = async () => {
+    console.log(cookies);
+    const res = await signOut({
+      'access-token': cookies['_access_token'],
+      client: cookies['_client'],
+      uid: cookies['_uid'],
+    });
+    if (res.status === 422) {
+      console.log({ res });
+    } else if (res.status === 200) {
+      console.log({ res });
+      removeCookie('_access_token', { path: '/', secure: true });
+      removeCookie('_client', { path: '/', secure: true });
+      removeCookie('_uid', { path: '/', secure: true });
+      setIsSignIn(false);
+      navigate('/');
+    }
+  };
+
+  return { inputEmail, inputPassword, register, login, emailErrorMessage, logOut };
 };
 
 export default useAuthentication;
