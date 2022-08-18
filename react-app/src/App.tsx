@@ -4,6 +4,7 @@ import AuthPresenter from './components/pages/auth/AuthPresenter';
 import TopPage from './components/pages/topPage/TopPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import RouteAuthGuard from './routes/RouteAuthGuard';
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
           <Route path='/' element={<AuthPresenter />} />
           <Route path='/success' element={<TopPage />} />
           <Route path='/error-boundary-practice' element={<ErrorBoundaryPractice />} />
+          <Route
+            path='/success'
+            element={<RouteAuthGuard component={<TopPage />} redirect='/' />}
+          />
         </Routes>
       </BrowserRouter>
     </>
