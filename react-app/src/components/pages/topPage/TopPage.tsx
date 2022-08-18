@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import useAuthentication from '../auth/hooks/useAuthentication';
 
 const TopPage = () => {
-  return (
-    <div>success</div>
-  )
-}
+  const { logOut } = useAuthentication();
+  //NOTE: ログアウト機能は仮実装のため、後続の実装で変更
 
-export default TopPage
+  return <button onClick={logOut}>success</button>;
+};
+
+export default TopPage;
