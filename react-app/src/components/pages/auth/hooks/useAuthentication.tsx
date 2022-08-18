@@ -46,6 +46,7 @@ const useAuthentication = () => {
       setCookie('_client', res.headers['client'], { path: '/', secure: true });
       setCookie('_uid', res.headers['uid'], { path: '/', secure: true });
       //TODO: navigateの設定は仮実装のため、後続の対応で変更
+      setIsSignIn(true);
       navigate('/success');
     }
   };
@@ -56,6 +57,7 @@ const useAuthentication = () => {
       setCookie('_access_token', res.headers['access-token'], { path: '/', secure: true });
       setCookie('_client', res.headers['client'], { path: '/', secure: true });
       setCookie('_uid', res.headers['uid'], { path: '/', secure: true });
+      setIsSignIn(true);
       navigate('/success');
     } else if (res.status === 401) {
       toastService({
